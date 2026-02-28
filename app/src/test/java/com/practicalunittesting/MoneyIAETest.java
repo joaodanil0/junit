@@ -1,0 +1,35 @@
+package com.practicalunittesting;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import junitparams.Parameters;
+import junitparams.JUnitParamsRunner;
+
+@RunWith(JUnitParamsRunner.class)
+public class MoneyIAETest { // IAE -> IllegalArgumentException
+    private final static int VALID_AMOUNT = 5;
+    private final static String VALID_CURRENCY = "USD";
+
+    @SuppressWarnings("unused")
+    private static final Object[] getInvalidAmount() {
+        return new Integer[][] {{-12387}, {-5}, {-1}};
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters(method = "getInvalidAmount")
+    public void constructorShouldThrowIAEForInvalidAmount(int invalidAmount) {
+        new Money(invalidAmount, VALID_CURRENCY);
+    }
+
+    @SuppressWarnings("unused")
+    private static final Object[] getInvalidCurrency() {
+        return new String[][] {{null}, {""}};
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters(method = "getInvalidCurrency")
+    public void constructorShouldThrowIAEForInvalidCurrency(String invalidCurrency) {
+        new Money(VALID_AMOUNT, invalidCurrency);
+    }
+}

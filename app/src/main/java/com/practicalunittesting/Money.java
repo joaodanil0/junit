@@ -1,29 +1,36 @@
 package com.practicalunittesting;
 
 public class Money {
-    
+
     private final int amount;
     private final String currency;
 
-    public Money(int amount, String currency){
+    public Money(int amount, String currency) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("illegal amount: [" + amount + "]");
+        }
+        if (currency == null || currency.isEmpty()) {
+            throw new IllegalArgumentException("illegal currency: [" + currency + "]");
+        }
+
         this.amount = amount;
         this.currency = currency;
     }
 
-    public int getAmount(){
+    public int getAmount() {
         return amount;
     }
 
-    public String getCurrency(){
+    public String getCurrency() {
         return currency;
     }
 
     public boolean equals(Object anObject) {
-        if(anObject instanceof Money) {
+        if (anObject instanceof Money) {
             Money money = (Money) anObject;
             boolean isCurrentTheSame = money.getCurrency().equals(getCurrency());
             boolean isAmountTheSame = getAmount() == money.getAmount();
-            return  isCurrentTheSame && isAmountTheSame;
+            return isCurrentTheSame && isAmountTheSame;
         }
         return false;
     }
