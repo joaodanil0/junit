@@ -6,4 +6,5 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.11'
+    testImplementation 'pl.pragmatists:JUnitParams:1.0.0'
 }
